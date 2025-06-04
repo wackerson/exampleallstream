@@ -1917,7 +1917,7 @@ app.get('/search/:query', async (req, res) => {
             .map((movie) => {
                 const linkType = movie.type === 'tvSeries' ? 'shows' : 'movies';
                 return `
-                    <div class="movie-card" onclick="location.href='https://allstream.cc/${linkType}/${movie.id}'">
+                    <div class="movie-card" onclick="location.href='https://exampleallstream.fly.dev/${linkType}/${movie.id}'">
                         <img src="${movie.image}" alt="${movie.primaryTitle}" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450?text=No+Image';" />
                         <div class="movie-info">
                             <div class="movie-title">${movie.primaryTitle}</div>
@@ -2568,8 +2568,8 @@ app.get('/how-to-watch', (req, res) => {
                         <div class="step-content">
                             <p>Once you have the IMDb ID, you can watch it on  ALLSTREAM using one of these formats:</p>
                             <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px;">
-                                <li><strong>For Movies:</strong>  allstream.cc/movies/<span class="highlight">tt0903747</span></li>
-                                <li><strong>For TV Shows:</strong>  allstream.cc/shows/<span class="highlight">tt0903747</span></li>
+                                <li><strong>For Movies:</strong>  exampleallstream.fly.dev/movies/<span class="highlight">tt0903747</span></li>
+                                <li><strong>For TV Shows:</strong>  exampleallstream.fly.dev/shows/<span class="highlight">tt0903747</span></li>
                             </ul>
                             <p>Simply replace <span class="highlight">tt0903747</span> with the IMDb ID of the movie or show you want to watch.</p>
                         </div>
@@ -2579,10 +2579,10 @@ app.get('/how-to-watch', (req, res) => {
                 <div class="example-card">
                     <h3>Examples</h3>
                     <p><strong>Breaking Bad (TV Show):</strong> IMDb ID = tt0903747<br>
-                    Watch at: <a href="/shows/tt0903747" style="color: var(--primary);">allstream.cc/shows/tt0903747</a></p>
+                    Watch at: <a href="/shows/tt0903747" style="color: var(--primary);">exampleallstream.fly.dev/shows/tt0903747</a></p>
                     <br>
                     <p><strong>The Dark Knight (Movie):</strong> IMDb ID = tt0468569<br>
-                    Watch at: <a href="/movies/tt0468569" style="color: var(--primary);"> allstream.cc/movies/tt0468569</a></p>
+                    Watch at: <a href="/movies/tt0468569" style="color: var(--primary);"> exampleallstream.fly.dev/movies/tt0468569</a></p>
                 </div>
                 
                 <div class="note">
