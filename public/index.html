@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ALLSTREAM - Watch your favorite movies and TV shows for free. Stream the latest content with no subscription required.">
+    <meta name="keywords" content="ALLSTREAM,ALLSTREAM.to, yes movies, ALLSTREAM, free movies, free tv shows, streaming, online movies, watch movies">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://allstream.cc">
+    <title>ALLSTREAM - Watch FREE Movies & Shows Online | ALLSTREAM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://th.bing.com/th/id/R.17dea5ebc20f4fd10389b4f180ae9b3d?rik=e9t%2fhvOQADZM1g&riu=http%3a%2f%2fclipart-library.com%2fimages%2f8i65B8AXT.png&ehk=ruY7nFucsGPNXtLQ6BYoDblZX0Klw15spn25fXFppPs%3d&risl=&pid=ImgRaw&r=0">
+    
+    <style>
+        :root {
+            --primary: #e50914;
+            --dark: #141414;
+            --light: #ffffff;
+            --gray: #808080;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--light);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 4%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: var(--dark);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        margin-right: 9px;
+    }
+
+   
+        .search-container {
+            position: relative;
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+
+        .search-input {
+            background: rgba(0,0,0,0.75);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            width: 200px;
+            transition: width 0.3s ease;
+        }
+
+        .search-input:focus {
+            width: 300px;
+            outline: none;
+        }
+
+        .featured-section {
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+            display: flex;
+            align-items: flex-end;
+            padding: 4rem 4%;
+        }
+
+        .featured-content {
+            max-width: 600px;
+        }
+
+        .featured-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .btn-secondary {
+            background: rgba(109, 109, 110, 0.7);
+            color: var(--light);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .section-title {
+            padding: 2rem 4%;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .movies-row {
+            padding: 0 4%;
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1rem;
+            padding-bottom: 2rem;
+        }
+
+        .movies-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .movie-card {
+            flex: 0 0 auto;
+            width: 200px;
+            transition: transform 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.1);
+            z-index: 2;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .movie-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .movie-card:hover .movie-info {
+            opacity: 1;
+        }
+
+        .movie-title {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .movie-meta {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .movie-card:hover img {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .movie-card:hover .movie-info {
+            opacity: 1;
+            box-shadow: inset 0 -50px 50px rgba(0, 0, 0, 0.9);
+        }
+
+
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 4%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .featured-title {
+                font-size: 2rem;
+            }
+            
+            .movie-card {
+                width: 150px;
+            }
+            
+            .movie-card img {
+                height: 225px;
+            }
+            
+            /* Add these rules for mobile search bar */
+            .search-container {
+                margin-right: 1rem;
+            }
+            
+            .search-input {
+                width: 140px;
+            }
+            
+            .search-input:focus {
+                width: 180px;
+            }
+        }
+
+
+        @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+
+    .movies-row-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: var(--light);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.scroll-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.scroll-left {
+    left: 0;
+}
+
+.scroll-right {
+    right: 0;
+}
+
+.movies-row {
+    flex: 1;
+    overflow-x: hidden;
+    display: flex;
+    scroll-behavior: smooth;
+    gap: 1rem;
+}
+
+
+        /* Add fade-in and fade-out effects to the featured section */
+    /* Add fade-in and fade-out effects to the featured section */
+    .featured-section {
+        position: relative;
+        height: 80vh;
+        background: 
+            linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), /* Top shadow gradient */
+            linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.8)), /* Brightening and bottom shadow gradient */
+            url('https://imageio.forbes.com/specials-images/imageserve/6741de6610daf0f329b9f520/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') center/cover;
+        display: flex;
+        align-items: flex-end;
+        padding: 4rem 4%;
+        animation: fadeIn 2s ease-in-out;
+       
+    }
+
+    .featured-section.hidden {
+        animation: fadeOut 2s ease-in-out;
+    }
+
+    /* Ensure smooth transitions */
+    .featured-section img {
+        transition: opacity 2s ease-in-out;
+    }
+
+     .nav-links {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: var(--light);
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: var(--primary);
+    }
+
+    .live-sports {
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .live-sports:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+    <nav class="nav">
+        <a href="/" class="logo">ALL<span style="color: #ffffff;">STREAM</span></a>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search movies & shows...">
+        </div>
+
+
+        <p>
+            <a href="https://allstream.cc/sports" class="live-sports">Live Sports</a>
+        </p>
+    </nav>
+</header>
+
+    <section class="featured-section" >
+        <div class="featured-content">
+            <h1 class="featured-title">Gladiator II</h1>
+            <p class="featured-description">The highly anticipated sequel to the epic historical drama returns with more action, betrayal, and vengeance in ancient Rome.</p>
+            <a href="https://allstream.cc/movies/tt9218128"  class="btn btn-primary"><i class="fas fa-play"></i> Watch Now</a>
+        </div>
+    </section>
+
+    <div style="text-align: center; margin: 2rem 0;">
+        <a href="https://beonbetlink.eu/ifa645e4d" target="_blank">
+            <img src="ad.gif" alt="Advertisement" style="width: 600px; max-width: 100%; display: inline-block;">
+        </a>
+    </div>
+
+    <h2 class="section-title">Popular Shows</h2>
+    <div class="movies-row-wrapper">
+        <button class="scroll-button scroll-left" onclick="scrollRow('popular-shows', -200)">
+            &#8249;
+        </button>
+    <div class="movies-row" id="popular-shows">
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt0944947'">
+            <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_.jpg" alt="Game of Thrones">
+            <div class="movie-info">
+                <div class="movie-title">Game of Thrones</div>
+                <div class="movie-meta">
+                    <span>⭐ 9.2</span>
+                    <span> • 2011</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt10919420'">
+            <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" alt="Squid Game">
+            <div class="movie-info">
+                <div class="movie-title">Squid Game</div>
+                <div class="movie-meta">
+                    <span>⭐ 8.0</span>
+                    <span> • 2021</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt11280740'">
+            <img src="https://m.media-amazon.com/images/M/MV5BZDI5YzJhODQtMzQyNy00YWNmLWIxMjUtNDBjNjA5YWRjMzExXkEyXkFqcGc@._V1_.jpg" alt="Severance">
+            <div class="movie-info">
+                <div class="movie-title">Severance</div>
+                <div class="movie-meta">
+                    <span>⭐ 8.7</span>
+                    <span> • 2022</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt24069848'">
+            <img src="https://m.media-amazon.com/images/M/MV5BZDQ5ZDVkOWUtZTM2NC00MDcxLTgzY2ItNmJkOGVkMTRmZmQxXkEyXkFqcGc@._V1_.jpg" alt="American Primeval">
+            <div class="movie-info">
+                <div class="movie-title">American Primeval</div>
+                <div class="movie-meta">
+                    <span>⭐ N/A</span>
+                    <span> • 2025</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt13918776'">
+            <img src="https://m.media-amazon.com/images/M/MV5BY2NlZWQ0NDctMzBmNS00MDA0LWExNWEtOTI2ZGNiMjBmYzJjXkEyXkFqcGc@._V1_.jpg" alt="The Night Agent">
+            <div class="movie-info">
+                <div class="movie-title">The Night Agent</div>
+                <div class="movie-meta">
+                    <span>⭐ 7.5</span>
+                    <span> • 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt14688458'">
+            <img src="https://m.media-amazon.com/images/M/MV5BNjA5ODM4YTEtNDcxZi00N2ViLTg0MTgtNGQxNjBjZWY5YTk3XkEyXkFqcGc@._V1_.jpg" alt="Silo">
+            <div class="movie-info">
+                <div class="movie-title">Silo</div>
+                <div class="movie-meta">
+                    <span>⭐ 8.1</span>
+                    <span> • 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/shows/tt14186672'">
+            <img src="https://m.media-amazon.com/images/M/MV5BNTRkY2ZkNzUtMzBlNC00NTc0LWE0ZDQtMWZiNGU5OWEyZGU4XkEyXkFqcGc@._V1_.jpg" alt="Landman">
+            <div class="movie-info">
+                <div class="movie-title">Landman</div>
+                <div class="movie-meta">
+                    <span>⭐ 8.3</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="scroll-button scroll-right" onclick="scrollRow('popular-shows', 200)">
+        &#8250;
+    </button>
+    </div>
+    
+    <h2 class="section-title">Popular Movies</h2>
+    <div class="movies-row-wrapper" >
+        <button class="scroll-button scroll-left" onclick="scrollRow('popular-movies', -200)">
+            &#8249;
+        </button>
+    
+
+    <div class="movies-row" id="popular-movies">
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt0013442'">
+            <img src="https://m.media-amazon.com/images/M/MV5BNDg1OTI1M2MtMTVlMS00ZjFhLTgyMTAtYjIzOWUwZTkyZWE5XkEyXkFqcGc@._V1_.jpg" alt="Nosferatu: A Symphony of Horror">
+            <div class="movie-info">
+                <div class="movie-title">Nosferatu: A Symphony of Horror</div>
+                <div class="movie-meta">
+                    <span>⭐ 7.8</span>
+                    <span> • 1922</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt8999762'">
+            <img src="https://m.media-amazon.com/images/M/MV5BMWE5OGU0OWQtYjdiOC00NWNmLWI3ZTQtZGJlYmQ1ODEyODA1XkEyXkFqcGc@._V1_.jpg" alt="The Brutalist">
+            <div class="movie-info">
+                <div class="movie-title">The Brutalist</div>
+                <div class="movie-meta">
+                    <span>⭐ 8.1</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt13622970'">
+            <img src="https://m.media-amazon.com/images/M/MV5BZDUxNThhYTUtYjgxNy00MGQ4LTgzOTEtZjg1YTU5NTcwNThlXkEyXkFqcGc@._V1_.jpg" alt="Moana 2">
+            <div class="movie-info">
+                <div class="movie-title">Moana 2</div>
+                <div class="movie-meta">
+                    <span>⭐ 7.0</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt8790086'">
+            <img src="https://m.media-amazon.com/images/M/MV5BZDU0YTI5ODAtN2NmMS00YTg3LTgyNDItN2RmOWEzOTkzZjcyXkEyXkFqcGc@._V1_.jpg" alt="Kraven: The Hunter">
+            <div class="movie-info">
+                <div class="movie-title">Kraven: The Hunter</div>
+                <div class="movie-meta">
+                    <span>⭐ 5.4</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt1262426'">
+            <img src="https://m.media-amazon.com/images/M/MV5BOWMwYjYzYmMtMWQ2Ni00NWUwLTg2MzAtYzkzMDBiZDIwOTMwXkEyXkFqcGc@._V1_.jpg" alt="Wicked">
+            <div class="movie-info">
+                <div class="movie-title">Wicked</div>
+                <div class="movie-meta">
+                    <span>⭐ 7.9</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt9218128'">
+            <img src="https://m.media-amazon.com/images/M/MV5BMWYzZTM5ZGQtOGE5My00NmM2LWFlMDEtMGNjYjdmOWM1MzA1XkEyXkFqcGc@._V1_.jpg" alt="Gladiator II">
+            <div class="movie-info">
+                <div class="movie-title">Gladiator II</div>
+                <div class="movie-meta">
+                    <span>⭐ 6.7</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+        <div class="movie-card" onclick="location.href='https://allstream.cc/movies/tt29623480'">
+            <img src="https://m.media-amazon.com/images/M/MV5BZjM2M2E3YzAtZDJjYy00MDhkLThiYmItOGZhNzQ3NTgyZmI0XkEyXkFqcGc@._V1_.jpg" alt="The Wild Robot">
+            <div class="movie-info">
+                <div class="movie-title">The Wild Robot</div>
+                <div class="movie-meta">
+                    <span>⭐ 8.2</span>
+                    <span> • 2024</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <button class="scroll-button scroll-right" onclick="scrollRow('popular-movies', 200)">
+        &#8250;
+    </button>
+    </div>
+   
+
+    <footer>
+        <p>Made with ❤️ by ALLSTREAM</p>
+        <p>All content is hosted on third-party services not affiliated with allstream.cc</p>
+        <p>Contact Me -> cashincentive@proton.me</p>
+    </footer>
+
+    <script>
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        function scrollRow(rowId, distance) {
+    const row = document.getElementById(rowId);
+    row.scrollBy({
+        left: distance,
+        behavior: 'smooth'
+    });
+}
+
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = 'https://allstream.cc/search/' + encodeURIComponent(query);
+                }
+            }
+        });
+    </script>
+
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5D5C0M4BFT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5D5C0M4BFT');
+</script>
+</body>
+</html>
