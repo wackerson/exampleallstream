@@ -1,0 +1,24 @@
+# fly.toml app configuration file
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'now'
+primary_region = 'dfw'
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 3 # Start with 3 machines to distribute the load better
+  max_machines_running = 8 # Allow scaling up to 8 machines during high traffic
+  processes = ['app']
+
+[[vm]]
+  memory = '2gb' # 2GB memory for each instance
+  cpu_kind = 'shared' # Shared CPUs for cost efficiency
+  cpus = 2 # 2 CPUs per instance for better concurrency
+  memory_mb = 2048 # Match memory in MB for clarity
